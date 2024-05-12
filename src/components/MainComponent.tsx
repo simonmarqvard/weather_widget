@@ -19,6 +19,9 @@ export default function MainComponent() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!inputValue) {
+      return;
+    }
     setCity(inputValue);
     setInputValue("");
     router.push(`/?city=${inputValue}`);
@@ -34,9 +37,11 @@ export default function MainComponent() {
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
+
       const response = await axios.post<WeatherData>("/api/fetchWeather", {
         city,
       });
+
       return response.data;
     } catch (err) {
       throw new Error(`Something went wrong: ${err.message}"`);
@@ -46,15 +51,11 @@ export default function MainComponent() {
   const {
     data: cityData,
     isLoading,
-    error,
+    error, //This error will trigger on missing credentials and missing city
   } = useQuery<WeatherData>({
     queryKey: [city],
     queryFn: () => fetchWeather(city),
   });
-
-  if (error) {
-    <div>Something went wrong when fetching data</div>;
-  }
 
   return (
     <div className="w-full bg-gray-200 flex justify-center items-center h-screen">
@@ -62,6 +63,7 @@ export default function MainComponent() {
         Weather Widget
       </div>
       <div className="w-1/3 bg-gray-300 p-6 rounded-lg shadow-lg">
+        {error && <div>Something went wrong</div>}
         <DataDisplay cityData={cityData} isLoading={isLoading} />
         <FormInput
           handleSubmit={handleSubmit}
@@ -72,3 +74,7 @@ export default function MainComponent() {
     </div>
   );
 }
+
+// Todo: Tests: add NextAPI (fetchWeater) route test
+// Todo: Wrap DataDisplayComponents in a Wrapper Component
+// Todo: Fix missing TS errors

@@ -9,16 +9,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { city }: RequestBody = req.body;
+    const { city = "copenhagen" }: RequestBody = req.body;
 
     if (!city) {
-      throw new Error("city required");
+      return res.status(400).json({ message: "bad request" });
     }
 
     const key = process.env.WEATHER_API_KEY;
 
     if (!key) {
-      throw new Error("API key invalid");
+      return res.status(500).json({ message: "missing credentials in call" });
     }
 
     const response = await fetch(
@@ -26,11 +26,6 @@ export default async function handler(
     );
 
     const data = await response.json();
-
-    if (!data) {
-      return undefined;
-    }
-
     res.status(200).json(data);
   } catch (err) {
     res

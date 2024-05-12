@@ -27,7 +27,7 @@ export default function DataDisplay({ cityData, isLoading }: DataDisplayProps) {
   const { name, main, wind } = cityData;
 
   if (!name && !main && !wind) {
-    return <div>Something went wrong. Try a different search.</div>;
+    return <div>Something went wrong. Try a different city.</div>;
   }
 
   return (
