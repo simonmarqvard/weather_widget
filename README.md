@@ -3,11 +3,11 @@
 This weather widget app show you the weather in different cities depending on the city you input.
 It is built using NextJS, Typescript and TailwindCSS and relies on the https://openweathermap.org/ API for data fetching.
 
-![Preview](https://github.com/simonmarqvard/weather_widget/Preview.png)
+![Preview](https://github.com/simonmarqvard/weather_widget/blob/main/Preview.png)
 
 The city defaults to Copenhagen and also runs on browsers with JavaScript disabled.
 
-![Preview](https://github.com/simonmarqvard/weather_widget/PreviewNoJs.png)
+![Preview](https://github.com/simonmarqvard/weather_widget/blob/main/PreviewNoJS.png)
 
 ## Getting Started
 
