@@ -1,15 +1,5 @@
 import Skeleton from "./Skeleton";
-
-interface WeatherData {
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  name: string;
-  wind: {
-    speed: number;
-  };
-}
+import type { WeatherData } from "../utils/weatherData";
 
 interface DataDisplayProps {
   cityData: WeatherData | undefined;
